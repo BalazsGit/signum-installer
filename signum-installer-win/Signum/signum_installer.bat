@@ -4,29 +4,63 @@ cd %~dp0
 
 set "SIGNUM_STARTER_BAT=start_signum.bat"
 
+set "SIGNUM_NODE_DIR=node"	
+
 set "SIGNUM_MAINNET_VERSION=v3.8.2"
-set "SIGNUM_MAINNET_DIR=Mainnet"
+set "SIGNUM_MAINNET_DIR=mainnet"
+set "SIGNUM_MAINNET_DIR_PATH=%SIGNUM_MAINNET_DIR%\%SIGNUM_NODE_DIR%"
 set "SIGNUM_MAINNET_ZIP=signum-node-%SIGNUM_MAINNET_VERSION%-win_x64.zip"
 set "SIGNUM_MAINNET_UNZIP=signum-node-%SIGNUM_MAINNET_VERSION%-win_x64"
-set "SIGNUM_MAINNET_STARTER_BAT_PATH=%SIGNUM_MAINNET_DIR%\%SIGNUM_MAINNET_UNZIP%\%SIGNUM_STARTER_BAT%"
-set "SIGNUM_MAINNET_URL=https://github.com/signum-network/signum-node/releases/download/v3.8.2/signum-node-v3.8.2-win_x64.zip"
+set "SIGNUM_MAINNET_STARTER_BAT_PATH=%SIGNUM_MAINNET_DIR_PATH%\%SIGNUM_MAINNET_UNZIP%\%SIGNUM_STARTER_BAT%"
+set "SIGNUM_MAINNET_URL=https://github.com/signum-network/signum-node/releases/download/%SIGNUM_MAINNET_VERSION%/%SIGNUM_MAINNET_ZIP%"
 
 set "SIGNUM_TESTNET_VERSION=v3.8.2"
-set "SIGNUM_TESTNET_DIR=Testnet"
+set "SIGNUM_TESTNET_DIR=testnet"
+set "SIGNUM_TESTNET_DIR_PATH=%SIGNUM_TESTNET_DIR%\%SIGNUM_NODE_DIR%"
 set "SIGNUM_TESTNET_ZIP=signum-node-%SIGNUM_TESTNET_VERSION%-win_x64.zip"
 set "SIGNUM_TESTNET_UNZIP=signum-node-%SIGNUM_TESTNET_VERSION%-win_x64"
-set "SIGNUM_TESTNET_STARTER_BAT_PATH=%SIGNUM_TESTNET_DIR%\%SIGNUM_TESTNET_UNZIP%\%SIGNUM_STARTER_BAT%"
-set "SIGNUM_TESTNET_URL=https://github.com/signum-network/signum-node/releases/download/v3.8.2/signum-node-v3.8.2-win_x64.zip"
+set "SIGNUM_TESTNET_STARTER_BAT_PATH=%SIGNUM_TESTNET_DIR_PATH%\%SIGNUM_TESTNET_UNZIP%\%SIGNUM_STARTER_BAT%"
+set "SIGNUM_TESTNET_URL=https://github.com/signum-network/signum-node/releases/download/%SIGNUM_TESTNET_VERSION%/%SIGNUM_TESTNET_ZIP%"
 	
-set "MAINNET_DEFAULT_PROPERTIES=.\%SIGNUM_MAINNET_DIR%\%SIGNUM_MAINNET_UNZIP%\conf\node-default.properties"
-set "MAINNET_PROPERTIES=.\%SIGNUM_MAINNET_DIR%\%SIGNUM_MAINNET_UNZIP%\conf\node.properties"
+set "MAINNET_DEFAULT_PROPERTIES=.\%SIGNUM_MAINNET_DIR_PATH%\%SIGNUM_MAINNET_UNZIP%\conf\node-default.properties"
+set "MAINNET_PROPERTIES=.\%SIGNUM_MAINNET_DIR_PATH%\%SIGNUM_MAINNET_UNZIP%\conf\node.properties"
 	
-set "TESTNET_DEFAULT_PROPERTIES=.\%SIGNUM_TESTNET_DIR%\%SIGNUM_TESTNET_UNZIP%\conf\node-default.properties"
-set "TESTNET_PROPERTIES=.\%SIGNUM_TESTNET_DIR%\%SIGNUM_TESTNET_UNZIP%\conf\node.properties"
+set "TESTNET_DEFAULT_PROPERTIES=.\%SIGNUM_TESTNET_DIR_PATH%\%SIGNUM_TESTNET_UNZIP%\conf\node-default.properties"
+set "TESTNET_PROPERTIES=.\%SIGNUM_TESTNET_DIR_PATH%\%SIGNUM_TESTNET_UNZIP%\conf\node.properties"
+
+set "SIGNUM_MAINNET_MINER_VERSION="
+set "SIGNUM_MAINNET_MINER_DIR="
+set "SIGNUM_MAINNET_MINER_ZIP="
+set "SIGNUM_MAINNET_MINER_UNZIP="
+set "SIGNUM_MAINNET_MINER_STARTER_BAT_PATH="
+set "SIGNUM_MAINNET_MINER_URL="
+
+set "SIGNUM_TESTNET_MINER_VERSION="
+set "SIGNUM_TESTNET_MINER_DIR="
+set "SIGNUM_TESTNET_MINER_ZIP="
+set "SIGNUM_TESTNET_MINER_UNZIP="
+set "SIGNUM_TESTNET_MINER_STARTER_BAT_PATH="
+set "SIGNUM_TESTNET_MINER_URL="
+
+set "SIGNUM_MAINNET_MINER_YAML="
+set "SIGNUM_TESTNET_MINER_YAML="
+
+set "SIGNUM_PLOTTER_VERSION="
+set "SIGNUM_PLOTTER_DIR="
+set "SIGNUM_PLOTTER_ZIP="
+set "SIGNUM_PLOTTER_UNZIP="
+set "SIGNUM_PLOTTER_STARTER_BAT_PATH="
+set "SIGNUM_PLOTTER_URL="
+
+set "BTDEX_VERSION=v0.6.8"
+set "BTDEX_DIR=btdex"
+set "BTDEX_EXE=btdex-%BTDEX_VERSION%-win.exe"
+set "BTDEX_EXE_PATH=%BTDEX_DIR%\%BTDEX_EXE%"
+set "BTDEX_URL=https://github.com/btdex/btdex/releases/download/%BTDEX_VERSION%/%BTDEX_EXE%"
 	
 set "MARIADB_STARTER_BAT=start_mariadb.bat"	
 
-set "DATABASE_DIR=Database"
+set "DATABASE_DIR=database"
 
 set "MARIADB_VERSION=10.6.20"
 set "MARIADB_DIR=MariaDB"	
@@ -36,7 +70,7 @@ set "MARIADB_BIN=%DATABASE_DIR%\%MARIADB_DIR%\%MARIADB_UNZIP%\bin"
 set "MARIADB_STARTER_BAT_PATH=%DATABASE_DIR%\%MARIADB_DIR%\%MARIADB_UNZIP%\%MARIADB_STARTER_BAT%"
 set "MARIADB_URL=https://archive.mariadb.org/mariadb-10.6.20/winx64-packages/mariadb-10.6.20-winx64.zip"
 	
-set "TOOLS_DIR=Tools"
+set "TOOLS_DIR=tools"
 	
 set "HEIDISQL_DIR=HeidiSQL"
 set "HEIDISQL_ZIP=HeidiSQL_12.8_64_Portable.zip"
@@ -52,8 +86,10 @@ set "HEIDISQL_URL=https://www.heidisql.com/downloads/releases/HeidiSQL_12.8_64_P
 	echo Please select an option:
 	echo [1] Install Signum Mainnet
 	echo [2] Install Signum Testnet
-	echo [3] Signum Starter Menu
-	echo [4] Exit
+	echo [3] Install BTDEX
+	echo [4] Install HeidiSQL
+	echo [5] Signum Starter Menu
+	echo [6] Exit
 	echo =====================================================
 
 	set "choice="
@@ -61,8 +97,18 @@ set "HEIDISQL_URL=https://www.heidisql.com/downloads/releases/HeidiSQL_12.8_64_P
 
 	if "%choice%"=="1" goto install_mainnet
 	if "%choice%"=="2" goto install_testnet
-	if "%choice%"=="3" goto start_menu
-	if "%choice%"=="4" goto exit
+	if "%choice%"=="3" ( 
+		call :install_btdex
+		pause
+		goto install_menu
+	)
+	if "%choice%"=="4" (
+		call :install_heidisql
+		pause
+		goto install_menu
+	)
+	if "%choice%"=="5" goto start_menu
+	if "%choice%"=="6" goto exit
 	echo Invalid choice! Please try again.
 	pause
 	goto install_menu
@@ -164,35 +210,35 @@ set "HEIDISQL_URL=https://www.heidisql.com/downloads/releases/HeidiSQL_12.8_64_P
     echo Installing Signum mainnet ...
 
 	:: Create mainnet/testnet directory
-    if not exist "%SIGNUM_MAINNET_DIR%" (
-        mkdir "%SIGNUM_MAINNET_DIR%"
-        echo Created directory: %SIGNUM_MAINNET_DIR%
+    if not exist "%SIGNUM_MAINNET_DIR_PATH%" (
+        mkdir "%SIGNUM_MAINNET_DIR_PATH%"
+        echo Created directory: %SIGNUM_MAINNET_DIR_PATH%
     ) else (
-        echo Directory already exists: %SIGNUM_MAINNET_DIR%
+        echo Directory already exists: %SIGNUM_MAINNET_DIR_PATH%
     )
 
-	if exist "%SIGNUM_MAINNET_DIR%\%SIGNUM_MAINNET_ZIP%" (
+	if exist "%SIGNUM_MAINNET_DIR_PATH%\%SIGNUM_MAINNET_ZIP%" (
         echo %SIGNUM_MAINNET_ZIP% already downloaded.
     ) else (
 		:: Download the Signum mainnet zip file
 		echo Downloading Signum from GitHub ...
 		:: powershell -Command "Invoke-WebRequest -Uri '%SIGNUM_MAINNET_URL%' -OutFile '%SIGNUM_MAINNET_ZIP%'"
-		powershell -Command "Start-BitsTransfer -Source '%SIGNUM_MAINNET_URL%' -Destination '%SIGNUM_MAINNET_DIR%\%SIGNUM_MAINNET_ZIP%'"
+		powershell -Command "Start-BitsTransfer -Source '%SIGNUM_MAINNET_URL%' -Destination '%SIGNUM_MAINNET_DIR_PATH%\%SIGNUM_MAINNET_ZIP%'"
 		
 		:: Check if download was successful
-		if not exist "%SIGNUM_MAINNET_DIR%\%SIGNUM_MAINNET_ZIP%" (
+		if not exist "%SIGNUM_MAINNET_DIR_PATH%\%SIGNUM_MAINNET_ZIP%" (
 			echo Error: Failed to download Signum.
 			pause
 			goto :install_menu
 		)
 	)
 	
-	if exist "%SIGNUM_MAINNET_DIR%\%SIGNUM_MAINNET_UNZIP%" (
+	if exist "%SIGNUM_MAINNET_DIR_PATH%\%SIGNUM_MAINNET_UNZIP%" (
 		echo %SIGNUM_MAINNET_UNZIP% already installed.
 	) else (
 		:: Unzip the downloaded file to the installation directory
-		echo Unzipping Signum to %SIGNUM_MAINNET_DIR%\%SIGNUM_MAINNET_UNZIP% ...
-		powershell -Command "Expand-Archive -Path '%SIGNUM_MAINNET_DIR%\%SIGNUM_MAINNET_ZIP%' -DestinationPath '%SIGNUM_MAINNET_DIR%\%SIGNUM_MAINNET_UNZIP%' -Force"
+		echo Unzipping Signum to %SIGNUM_MAINNET_DIR_PATH%\%SIGNUM_MAINNET_UNZIP% ...
+		powershell -Command "Expand-Archive -Path '%SIGNUM_MAINNET_DIR_PATH%\%SIGNUM_MAINNET_ZIP%' -DestinationPath '%SIGNUM_MAINNET_DIR_PATH%\%SIGNUM_MAINNET_UNZIP%' -Force"
 	)
 	
 	:: Copy node-default.properties to node.properties
@@ -204,7 +250,7 @@ set "HEIDISQL_URL=https://www.heidisql.com/downloads/releases/HeidiSQL_12.8_64_P
 	:: Idea Signum-MariaDB; Signum-PostGreSQL; Signum-H2; Signum-SQLight folders with different ports
 	:: Question: Is Testnet port change possible?
 
-call :signum_starter_bat %SIGNUM_MAINNET_STARTER_BAT_PATH%
+call :signum_starter_bat Mainnet %SIGNUM_MAINNET_STARTER_BAT_PATH%
 
 call :install_mariadb Mainnet signum-mainnet %MAINNET_PROPERTIES%
 
@@ -261,50 +307,34 @@ goto :eof
     echo Installing Signum Testnet ...
 	
 	:: Create mainnet/testnet directory
-    if not exist "%SIGNUM_TESTNET_DIR%" (
-        mkdir "%SIGNUM_TESTNET_DIR%"
-        echo Created directory: %SIGNUM_TESTNET_DIR%
+    if not exist "%SIGNUM_TESTNET_DIR_PATH%" (
+        mkdir "%SIGNUM_TESTNET_DIR_PATH%"
+        echo Created directory: %SIGNUM_TESTNET_DIR_PATH%
     ) else (
-        echo Directory already exists: %SIGNUM_TESTNET_DIR%
-    )
-	
-	:: Create mainnet/testnet directory
-    if not exist "%SIGNUM_TESTNET_DIR%" (
-        mkdir "%SIGNUM_TESTNET_DIR%"
-        echo Created directory: %SIGNUM_TESTNET_DIR%
-    ) else (
-        echo Directory already exists: %SIGNUM_TESTNET_DIR%
+        echo Directory already exists: %SIGNUM_TESTNET_DIR_PATH%
     )
 
-    :: Create database directory
-    if not exist "%DATABASE_DIR%" (
-        mkdir "%DATABASE_DIR%"
-        echo Created directory: %DATABASE_DIR%
-    ) else (
-        echo Directory already exists: %DATABASE_DIR%
-    )
-
-	if exist "%SIGNUM_TESTNET_DIR%\%SIGNUM_TESTNET_ZIP%" (
+	if exist "%SIGNUM_TESTNET_DIR_PATH%\%SIGNUM_TESTNET_ZIP%" (
         echo %SIGNUM_TESTNET_ZIP% already downloaded.
     ) else (
 		:: Download the Signum mainnet zip file
 		echo Downloading Signum from GitHub ...
 		:: powershell -Command "Invoke-WebRequest -Uri '%SIGNUM_TESTNET_URL%' -OutFile '%SIGNUM_TESTNET_ZIP%'"
-		powershell -Command "Start-BitsTransfer -Source '%SIGNUM_TESTNET_URL%' -Destination '%SIGNUM_TESTNET_DIR%\%SIGNUM_TESTNET_ZIP%'"
+		powershell -Command "Start-BitsTransfer -Source '%SIGNUM_TESTNET_URL%' -Destination '%SIGNUM_TESTNET_DIR_PATH%\%SIGNUM_TESTNET_ZIP%'"
 		
 		:: Check if download was successful
-		if not exist "%SIGNUM_TESTNET_DIR%\%SIGNUM_TESTNET_ZIP%" (
+		if not exist "%SIGNUM_TESTNET_DIR_PATH%\%SIGNUM_TESTNET_ZIP%" (
 			echo Error: Failed to download Signum.
 			exit /b 1
 		)
 	)
 	
-	if exist "%SIGNUM_TESTNET_DIR%\%SIGNUM_TESTNET_UNZIP%" (
+	if exist "%SIGNUM_TESTNET_DIR_PATH%\%SIGNUM_TESTNET_UNZIP%" (
 		echo %SIGNUM_TESTNET_UNZIP% already installed.
 	) else (
 		:: Unzip the downloaded file to the installation directory
-		echo Unzipping Signum to %SIGNUM_TESTNET_DIR%\%SIGNUM_TESTNET_UNZIP% ...
-		powershell -Command "Expand-Archive -Path '%SIGNUM_TESTNET_DIR%\%SIGNUM_TESTNET_ZIP%' -DestinationPath '%SIGNUM_TESTNET_DIR%\%SIGNUM_TESTNET_UNZIP%' -Force"
+		echo Unzipping Signum to %SIGNUM_TESTNET_DIR_PATH%\%SIGNUM_TESTNET_UNZIP% ...
+		powershell -Command "Expand-Archive -Path '%SIGNUM_TESTNET_DIR_PATH%\%SIGNUM_TESTNET_ZIP%' -DestinationPath '%SIGNUM_TESTNET_DIR_PATH%\%SIGNUM_TESTNET_UNZIP%' -Force"
 	)
 	
 	:: Copy node-default.properties to node.properties
@@ -318,7 +348,7 @@ goto :eof
 	
 	echo Update complete.
 	
-call :signum_starter_bat %SIGNUM_TESTNET_STARTER_BAT_PATH%
+call :signum_starter_bat Testnet %SIGNUM_TESTNET_STARTER_BAT_PATH%
 	
 call :install_mariadb Testnet signum-testnet %TESTNET_PROPERTIES%
 	
@@ -345,16 +375,16 @@ call :install_mariadb Testnet signum-testnet %TESTNET_PROPERTIES%
 	
 goto :eof
 	
-:signum_starter_bat	
+:signum_starter_bat
 	
-	if not exist "%1%" (
+	if not exist "%2%" (
 		:: Create start_signum.bat file with the desired content
-		echo cd %%~dp0 > "%1%"
-		echo title Signum Node Mainnet >> "%1%"
-		echo start /min ..\..\%MARIADB_STARTER_BAT_PATH% >> "%1%"
+		echo cd %%~dp0 > "%2%"
+		echo title Signum Node "%1%" >> "%2%"
+		echo start /min ..\..\..\%MARIADB_STARTER_BAT_PATH% >> "%2%"
 		echo timeout 10 >> "%1%"
-		echo .\jre\bin\java -jar .\signum-node.jar >> "%1%"
-		echo exit >> "%1%"
+		echo .\jre\bin\java -jar .\signum-node.jar >> "%2%"
+		echo exit >> "%2%"
 
 		:: Inform the user that the file has been created
 		echo "%SIGNUM_STARTER_BAT%" successfully created.
@@ -364,17 +394,9 @@ goto :eof
 	
 goto :eof
 	
-:install_tools	
+:install_heidisql
 	
-	:: Create mainnet/testnet directory
-    if not exist "%TOOLS_DIR%" (
-        mkdir "%TOOLS_DIR%"
-        echo Created directory: %TOOLS_DIR%
-    ) else (
-        echo Directory already exists: %TOOLS_DIR%
-    )
-	
-	:: Create mainnet/testnet directory
+	:: Create HeidiSQL directory
     if not exist "%TOOLS_DIR%\%HEIDISQL_DIR%" (
         mkdir "%TOOLS_DIR%\%HEIDISQL_DIR%"
         echo Created directory: %TOOLS_DIR%\%HEIDISQL_DIR%
@@ -404,20 +426,43 @@ goto :eof
 		:: Unzip the downloaded file to the installation directory
 		echo Unzipping HeidiSQL to %TOOLS_DIR%\%HEIDISQL_DIR%\%HEIDISQL_UNZIP% ...
 		powershell -Command "Expand-Archive -Path '%TOOLS_DIR%\%HEIDISQL_DIR%\%HEIDISQL_ZIP%' -DestinationPath '%TOOLS_DIR%\%HEIDISQL_DIR%\%HEIDISQL_UNZIP%' -Force"
+		echo HeidiSQL installed successfully.
+	)
+	
+goto :eof
+
+:install_btdex
+
+	:: Create btdex directory
+    if not exist "%BTDEX_DIR%" (
+        mkdir "%BTDEX_DIR%"
+        echo Created directory: %BTDEX_DIR%
+    ) else (
+        echo Directory already exists: %BTDEX_DIR%
+    )
+	
+	if exist "%BTDEX_EXE_PATH%" (
+        echo %BTDEX_EXE% already downloaded.
+    ) else (
+		:: Download btdex exe file
+		echo Downloading BTDEX ...
+		powershell -Command "Start-BitsTransfer -Source '%BTDEX_URL%' -Destination '%BTDEX_EXE_PATH%'"
+		
+		:: Check if download was successful
+		if not exist "%BTDEX_EXE_PATH%" (
+			echo Error: Failed to download BTDEX.
+			pause
+			goto install_menu
+		) else (
+			echo BTDEX installed successfully.
+		)
 	)
 	
 goto :eof
 
 :install_mariadb
 
-call :install_tools
-
-	:: Create the installation directory if it doesn't exist
-	if not exist "%DATABASE_DIR%" (
-		mkdir "%DATABASE_DIR%"
-	) else (
-		echo Directory already exists: %DATABASE_DIR%
-	)
+call :install_heidisql
 	
 	:: Create the installation directory if it doesn't exist
 	if not exist "%DATABASE_DIR%\%MARIADB_DIR%" (
