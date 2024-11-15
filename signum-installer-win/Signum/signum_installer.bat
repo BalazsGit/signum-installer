@@ -1,5 +1,5 @@
 @echo off
-setlocal ENABLEEXTENSIONS ENABLEDELAYEDEXPANSION
+setlocal ENABLEEXTENSIONS
 cd %~dp0
 
 set "SIGNUM_STARTER_BAT=start_signum.bat"
@@ -63,7 +63,7 @@ set "HEIDISQL_URL=https://www.heidisql.com/downloads/releases/HeidiSQL_12.8_64_P
 	if "%choice%"=="2" goto install_testnet
 	if "%choice%"=="3" goto start_menu
 	if "%choice%"=="4" goto exit
-	echo Invalid choice^! Please try again.
+	echo Invalid choice! Please try again.
 	pause
 	goto install_menu
 
@@ -91,7 +91,7 @@ set "HEIDISQL_URL=https://www.heidisql.com/downloads/releases/HeidiSQL_12.8_64_P
 			pause
 			goto start_menu
 		) else (
-			echo Signum Mainnet is not installed, please install first^!
+			echo Signum Mainnet is not installed, please install first!
 			pause
 			goto install_mainnet
 		)
@@ -102,7 +102,7 @@ set "HEIDISQL_URL=https://www.heidisql.com/downloads/releases/HeidiSQL_12.8_64_P
 			pause
 			goto start_menu
 		) else (
-			echo Signum Testnet is not installed, please install first^!
+			echo Signum Testnet is not installed, please install first!
 			pause
 			goto install_testnet
 		)
@@ -113,8 +113,8 @@ set "HEIDISQL_URL=https://www.heidisql.com/downloads/releases/HeidiSQL_12.8_64_P
 			pause
 			goto start_menu
 		) else (
-			echo MariaDB is not installed^! 
-			echo Please install Singnum Mainnet or Signum Testnet first^!
+			echo MariaDB is not installed! 
+			echo Please install Singnum Mainnet or Signum Testnet first!
 			pause
 			goto install_menu
 		)
@@ -123,14 +123,14 @@ set "HEIDISQL_URL=https://www.heidisql.com/downloads/releases/HeidiSQL_12.8_64_P
 	) else if "%choice%"=="5" ( 
 		goto exit
 	) else (
-		echo Invalid choice^! Please try again.
+		echo Invalid choice! Please try again.
 		pause
 		goto start_menu
 	)
 	
 :exit
 
-	echo Press any key to exiting Signum Installer. Goodbye^!
+	echo Press any key to exit Signum Installer. Goodbye!
 	pause
 	exit /b
 	
