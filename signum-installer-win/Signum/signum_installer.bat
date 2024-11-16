@@ -57,6 +57,12 @@ set "BTDEX_DIR=btdex"
 set "BTDEX_EXE=btdex-%BTDEX_VERSION%-win.exe"
 set "BTDEX_EXE_PATH=%BTDEX_DIR%\%BTDEX_EXE%"
 set "BTDEX_URL=https://github.com/btdex/btdex/releases/download/%BTDEX_VERSION%/%BTDEX_EXE%"
+
+set "PHOENIX_VERSION=1.5.0-beta.3"
+set "PHOENIX_DIR=phoenix"
+set "PHOENIX_EXE=win-phoenix-signum-wallet.%PHOENIX_VERSION%.exe"
+set "PHOENIX_EXE_PATH=%PHOENIX_DIR%\%PHOENIX_EXE%"
+set "PHOENIX_URL=https://github.com/signum-network/phoenix/releases/download/desktop-%PHOENIX_VERSION%/win-phoenix-signum-wallet.%PHOENIX_VERSION%.exe"
 	
 set "MARIADB_STARTER_BAT=start_mariadb.bat"	
 
@@ -72,9 +78,12 @@ set "MARIADB_URL=https://archive.mariadb.org/mariadb-10.6.20/winx64-packages/mar
 	
 set "TOOLS_DIR=tools"
 	
+set "HEIDISQL_VERSION=12.8_64"	
 set "HEIDISQL_DIR=HeidiSQL"
-set "HEIDISQL_ZIP=HeidiSQL_12.8_64_Portable.zip"
-set "HEIDISQL_UNZIP=HeidiSQL_12.8_64_Portable"
+set "HEIDISQL_ZIP=HeidiSQL_%HEIDISQL_VERSION%_Portable.zip"
+set "HEIDISQL_UNZIP=HeidiSQL_%HEIDISQL_VERSION%_Portable"
+set "HEIDISQL_EXE=heidisql.exe"
+set "HEIDISQL_EXE_PATH=%TOOLS_DIR%\%HEIDISQL_DIR%\%HEIDISQL_UNZIP%\%HEIDISQL_EXE%"
 set "HEIDISQL_URL=https://www.heidisql.com/downloads/releases/HeidiSQL_12.8_64_Portable.zip"
 
 :install_menu
@@ -84,34 +93,79 @@ set "HEIDISQL_URL=https://www.heidisql.com/downloads/releases/HeidiSQL_12.8_64_P
 	echo            Welcome to the Signum Installer
 	echo =====================================================
 	echo Please select an option:
-	echo [1] Install Signum Mainnet
-	echo [2] Install Signum Testnet
+	echo [1] Install Signum Mainnet with MariaDB
+	echo [2] Install Signum Testnet with MariaDB
 	echo [3] Install BTDEX
-	echo [4] Install HeidiSQL
-	echo [5] Signum Starter Menu
-	echo [6] Exit
+	echo [4] Install Phoenix
+	echo [5] Install MariaDB
+	echo [6] Install HeidiSQL
+	echo -----------------------------------------------------
+	echo [7] Signum Starter Menu
+	echo [8] Exit
 	echo =====================================================
 
 	set "choice="
-	set /p choice="Enter your choice (1-4): "
+	set /p choice="Enter your choice (1-8): "
 
-	if "%choice%"=="1" goto install_mainnet
-	if "%choice%"=="2" goto install_testnet
-	if "%choice%"=="3" ( 
-		call :install_btdex
+	if "%choice%"=="1" (
+		if exist "%SIGNUM_MAINNET_STARTER_BAT_PATH%" (
+			echo Signum Mainnet already installed.
+			pause
+			goto :install_menu
+		) else (
+			call :install_promt "Signum Mainnet" :install_mainnet
+		)
+	) else if "%choice%"=="2" (
+		if exist "%SIGNUM_TESTNET_STARTER_BAT_PATH%" (
+			echo Signum Testnet already installed.
+			pause
+			goto :install_menu
+		) else (
+			call :install_promt "Signum Testnet" :install_testnet
+		)
+	) else if "%choice%"=="3" ( 
+		if exist "%BTDEX_EXE_PATH%" (
+			echo BTDEX already installed.
+			pause
+			goto :install_menu
+		) else (
+			call :install_promt BTDEX :install_btdex
+		)
+	) else if "%choice%"=="4" (
+		if exist "%PHOENIX_EXE_PATH%" (
+			echo Phoenix already installed.
+			pause
+			goto :install_menu
+		) else (
+			call :install_promt Phoenix :install_phoenix
+		)
+	) else if "%choice%"=="5" (
+		if exist "%MARIADB_STARTER_BAT_PATH%" (
+			echo MariaDB already installed.
+			pause
+			goto :install_menu
+		) else (
+			call :install_promt MariaDB :install_mariadb
+			pause
+			goto :install_menu
+		)
+	) else if "%choice%"=="6" (
+		if exist "%HEIDISQL_EXE_PATH%" (
+			echo HeidiSQL already installed.
+			pause
+			goto :install_menu
+		) else (
+			call :install_promt HeidiSQL :install_heidisql
+		)
+	) else if "%choice%"=="7" (
+		goto start_menu
+	) else if "%choice%"=="8" (
+		goto exit
+	) else (
+		echo Invalid choice! Please try again.
 		pause
 		goto install_menu
 	)
-	if "%choice%"=="4" (
-		call :install_heidisql
-		pause
-		goto install_menu
-	)
-	if "%choice%"=="5" goto start_menu
-	if "%choice%"=="6" goto exit
-	echo Invalid choice! Please try again.
-	pause
-	goto install_menu
 
 :start_menu
 
@@ -120,15 +174,20 @@ set "HEIDISQL_URL=https://www.heidisql.com/downloads/releases/HeidiSQL_12.8_64_P
 	echo                 Start Signum Node
 	echo =====================================================
 	echo Please select an option:
-	echo [1] Start Signum Mainnet
-	echo [2] Start Signum Testnet
-	echo [3] Start MariaDB
-	echo [4] Signum Installer Menu
-	echo [5] Exit
+	echo [1] Start Signum Node Mainnet with MariaDB
+	echo [2] Start Signum Node Testnet with MariaDB
+	echo [3] Start BTDEX
+	echo [4] Start Phoenix
+	echo [5] Start MariaDB
+	echo [6] Start HeidiSQL
+
+	echo -----------------------------------------------------
+	echo [7] Signum Installer Menu
+	echo [8] Exit
 	echo =====================================================
 	
 	set "choice="
-	set /p choice="Enter your choice (1-5): "
+	set /p choice="Enter your choice (1-8): "
 
 	if "%choice%"=="1" (
 		If exist %SIGNUM_MAINNET_STARTER_BAT_PATH% (
@@ -152,21 +211,61 @@ set "HEIDISQL_URL=https://www.heidisql.com/downloads/releases/HeidiSQL_12.8_64_P
 			pause
 			goto install_testnet
 		)
-	) else if "%choice%"=="3" (
+	) else if "%choice%"=="3" ( 
+		If exist %BTDEX_EXE_PATH% (
+			echo Starting BTDEX
+			start "" "%BTDEX_EXE_PATH%"
+			pause
+			goto start_menu
+		) else (
+			echo BTDEX is not installed, please install first!
+			pause
+			call :install_promt BTDEX :install_btdex
+			pause
+			goto start_menu
+		)
+	) else if "%choice%"=="4" (
+		If exist %PHOENIX_EXE_PATH% (
+			echo Starting MariaDB
+			start /min "" "%PHOENIX_EXE_PATH%"
+			pause
+			goto start_menu
+		) else (
+			echo Phoenix is not installed, please install Phoenix first!
+			pause
+			call :install_promt Phoenix :install_phoenix
+			pause
+			goto start_menu
+		)
+			) else if "%choice%"=="5" (
 		If exist %MARIADB_STARTER_BAT_PATH% (
 			echo Starting MariaDB
 			start /min "" "%MARIADB_STARTER_BAT_PATH%"
 			pause
 			goto start_menu
 		) else (
-			echo MariaDB is not installed! 
-			echo Please install Singnum Mainnet or Signum Testnet first!
+			echo MariaDB is not installed please install MariaDB first!
 			pause
-			goto install_menu
+			call :install_promt MariaDB :install_mariadb
+			pause
+			goto start_menu
 		)
-	) else if "%choice%"=="4" ( 
+	) else if "%choice%"=="6" ( 
+		If exist %HEIDISQL_EXE_PATH% (
+			echo Starting HeidiSQL
+			start "" "%HEIDISQL_EXE_PATH%"
+			pause
+			goto start_menu
+		) else (
+			echo Signum Testnet is not installed, please install first!
+			pause
+			call :install_promt HeidiSQL :install_heidisql
+			pause
+			goto start_menu
+		)
+	) else if "%choice%"=="7" ( 
 		goto install_menu
-	) else if "%choice%"=="5" ( 
+	) else if "%choice%"=="8" ( 
 		goto exit
 	) else (
 		echo Invalid choice! Please try again.
@@ -181,31 +280,6 @@ set "HEIDISQL_URL=https://www.heidisql.com/downloads/releases/HeidiSQL_12.8_64_P
 	exit /b
 	
 :install_mainnet
-
-	if exist "%SIGNUM_MAINNET_STARTER_BAT_PATH%" (
-		echo Signum Mainnet already installed.
-		pause
-		goto :start_menu
-	)
-	
-	:: Prompt user to install Signum Testnet
-	set "userChoice="
-	set /p userChoice="Do you want to install Signum Mainnet? (yes/no): "
-
-	:: Check the user's choice, accepting "yes", "y", or "Y"
-	if /i "%userChoice%"=="yes" (
-		rem Do nothing
-	) else if /i "%userChoice%"=="y" (
-		rem Do nothing
-	) else if /i "%userChoice%"=="Y" (
-		rem Do nothing
-	) else (
-		echo Signum Mainnet Installation canceled.
-		pause
-		goto :install_menu
-	)
-
-:install_mainnet_start
 			
     echo Installing Signum mainnet ...
 
@@ -248,61 +322,25 @@ set "HEIDISQL_URL=https://www.heidisql.com/downloads/releases/HeidiSQL_12.8_64_P
 	:: Plans
 	:: Adding more custom properties in case port should be changed (e.g. multiple node running using different databases)
 	:: Idea Signum-MariaDB; Signum-PostGreSQL; Signum-H2; Signum-SQLight folders with different ports
+	:: Newer idea using postfix for database identification signum-node-v3.8.2-win_x64-mariadb; signum-node-v3.8.2-win_x64-pasgresql
 	:: Question: Is Testnet port change possible?
 
 call :signum_starter_bat Mainnet %SIGNUM_MAINNET_STARTER_BAT_PATH%
 
-call :install_mariadb Mainnet signum-mainnet %MAINNET_PROPERTIES%
+call :install_mariadb
+
+call :setup_mariadb Mainnet signum-mainnet %MAINNET_PROPERTIES%
 
 	echo Signum Mainnet Installation complete.
 	pause
 
-	if exist "%SIGNUM_TESTNET_STARTER_BAT_PATH%" goto :start_menu
-		:: Prompt user to install Signum Testnet
-		set "userChoice="
-		set /p userChoice="Do you want to install Signum Testnet as well? (yes/no): "
-
-		:: Check the user's choice, accepting "yes", "y", or "Y"
-		if /i "%userChoice%"=="yes" (
-			call :install_testnet_start
-		) else if /i "%userChoice%"=="y" (
-			call :install_testnet_start
-		) else if /i "%userChoice%"=="Y" (
-			call :install_testnet_start
-		) else (
-			echo Signum Testnet Installation canceled.
-			pause
-			goto start_menu
-		)
+	if not exist "%SIGNUM_TESTNET_STARTER_BAT_PATH%" (
+		call :install_promt "Signum Testnet" :install_testnet
+	)
 	
 goto :eof
 
 :install_testnet
-
-	if exist "%SIGNUM_TESTNET_STARTER_BAT_PATH%" (
-		echo Signum Testnet already installed.
-		pause
-		goto :start_menu
-	)
-	
-	:: Prompt user to install Signum Testnet
-	set "userChoice="
-	set /p userChoice="Do you want to install Signum Testnet? (yes/no): "
-
-	:: Check the user's choice, accepting "yes", "y", or "Y"
-	if /i "%userChoice%"=="yes" (
-		rem Do nothing
-	) else if /i "%userChoice%"=="y" (
-		rem Do nothing
-	) else if /i "%userChoice%"=="Y" (
-		rem Do nothing
-	) else (
-		echo Signum Testnet Installation canceled.
-		pause
-		goto :install_menu
-	)
-
-:install_testnet_start
 
     echo Installing Signum Testnet ...
 	
@@ -350,28 +388,16 @@ goto :eof
 	
 call :signum_starter_bat Testnet %SIGNUM_TESTNET_STARTER_BAT_PATH%
 	
-call :install_mariadb Testnet signum-testnet %TESTNET_PROPERTIES%
+call :install_mariadb
+
+call :setup_mariadb Testnet signum-testnet %TESTNET_PROPERTIES%
 	
 	echo Signum Testnet Installation complete.
 	pause
 	
-	if exist "%SIGNUM_MAINNET_STARTER_BAT_PATH%" goto :start_menu
-		:: Prompt user to install Signum Mainnet
-		set "userChoice="
-		set /p userChoice="Do you want to install Signum Mainnet as well? (yes/no): "
-
-		:: Check the user's choice, accepting "yes", "y", or "Y"
-		if /i "%userChoice%"=="yes" (
-			call :install_mainnet_start
-		) else if /i "%userChoice%"=="y" (
-			call :install_mainnet_start
-		) else if /i "%userChoice%"=="Y" (
-			call :install_mainnet_start
-		) else (
-			echo Signum Mainnet Installation canceled.
-			pause
-			goto start_menu
-		)
+	if not exist "%SIGNUM_MAINNET_STARTER_BAT_PATH%" (
+		call :install_promt "Signum Mainnet" :install_mainnet
+	)
 	
 goto :eof
 	
@@ -380,9 +406,9 @@ goto :eof
 	if not exist "%2%" (
 		:: Create start_signum.bat file with the desired content
 		echo cd %%~dp0 > "%2%"
-		echo title Signum Node "%1%" >> "%2%"
+		echo title Signum Node %1 >> "%2%"
 		echo start /min ..\..\..\%MARIADB_STARTER_BAT_PATH% >> "%2%"
-		echo timeout 10 >> "%1%"
+		echo timeout 10 >> "%2%"
 		echo .\jre\bin\java -jar .\signum-node.jar >> "%2%"
 		echo exit >> "%2%"
 
@@ -442,7 +468,7 @@ goto :eof
     )
 	
 	if exist "%BTDEX_EXE_PATH%" (
-        echo %BTDEX_EXE% already downloaded.
+        echo %BTDEX_EXE% already installed.
     ) else (
 		:: Download btdex exe file
 		echo Downloading BTDEX ...
@@ -460,9 +486,43 @@ goto :eof
 	
 goto :eof
 
+:install_phoenix
+
+	:: Create btdex directory
+    if not exist "%PHOENIX_DIR%" (
+        mkdir "%PHOENIX_DIR%"
+        echo Created directory: %PHOENIX_DIR%
+    ) else (
+        echo Directory already exists: %PHOENIX_DIR%
+    )
+	
+	if exist "%PHOENIX_EXE_PATH%" (
+        echo %PHOENIX_EXE% already installed.
+    ) else (
+		:: Download btdex exe file
+		echo Downloading BTDEX ...
+		powershell -Command "Start-BitsTransfer -Source '%PHOENIX_URL%' -Destination '%PHOENIX_EXE_PATH%'"
+		
+		:: Check if download was successful
+		if not exist "%PHOENIX_EXE_PATH%" (
+			echo Error: Failed to download BTDEX.
+			pause
+			goto install_menu
+		) else (
+			echo Phoenix installed successfully.
+		)
+	)
+	
+goto :eof
+
 :install_mariadb
 
 call :install_heidisql
+	
+	if exist "%MARIADB_STARTER_BAT_PATH%" (
+		echo MariaDB already installed!
+		goto :eof
+	)
 	
 	:: Create the installation directory if it doesn't exist
 	if not exist "%DATABASE_DIR%\%MARIADB_DIR%" (
@@ -495,6 +555,16 @@ call :install_heidisql
 		echo Unzipping MariaDB to %DATABASE_DIR%\%MARIADB_DIR%\%MARIADB_UNZIP% ...
 		powershell -Command "Expand-Archive -Path '%DATABASE_DIR%\%MARIADB_DIR%\%MARIADB_ZIP%' -DestinationPath '%DATABASE_DIR%\%MARIADB_DIR%' -Force"
 	)
+
+	:: Initialize the database if needed
+	if not exist "%DATABASE_DIR%\%MARIADB_DIR%\%MARIADB_UNZIP%\data" (
+		mkdir "%DATABASE_DIR%\%MARIADB_DIR%\%MARIADB_UNZIP%\data"
+		echo Initializing MariaDB data directory ...
+		:: "%MARIADB_BIN%\mysql_install_db.exe" --datadir=".\%DATABASE_DIR%\%MARIADB_DIR%\%MARIADB_UNZIP%\data" --basedir=".\%DATABASE_DIR%\%MARIADB_DIR%\%MARIADB_UNZIP%"
+		"%MARIADB_BIN%\mysql_install_db.exe"
+	) else (
+		echo MariaDB data directory already initialized.
+	)
 	
 	if not exist "%MARIADB_STARTER_BAT_PATH%" (
 		:: Create start_mariadb.bat file with the desired content
@@ -508,17 +578,11 @@ call :install_heidisql
 	) else (
 		echo File already exists: %MARIADB_STARTER_BAT%
 	)
+	
+	goto :eof
+	
+:setup_mariadb
 
-	:: Initialize the database if needed
-	if not exist "%DATABASE_DIR%\%MARIADB_DIR%\%MARIADB_UNZIP%\data" (
-		mkdir "%DATABASE_DIR%\%MARIADB_DIR%\%MARIADB_UNZIP%\data"
-		echo Initializing MariaDB data directory ...
-		:: "%MARIADB_BIN%\mysql_install_db.exe" --datadir=".\%DATABASE_DIR%\%MARIADB_DIR%\%MARIADB_UNZIP%\data" --basedir=".\%DATABASE_DIR%\%MARIADB_DIR%\%MARIADB_UNZIP%"
-		"%MARIADB_BIN%\mysql_install_db.exe"
-	) else (
-		echo MariaDB data directory already initialized.
-	)
-		
 	:: Ask for user input for database name, username, and password
 	set "DATABASE_NAME="
 	set /p DATABASE_NAME="Enter Signum %1 database name (or press Enter for default %2): "
@@ -563,6 +627,26 @@ call :install_heidisql
 	powershell -Command "(Get-Content -Path '%3') -replace '# DB.Url=jdbc:mariadb:.*', 'DB.Url=jdbc:mariadb://localhost:3306/%DATABASE_NAME%' -replace '# DB\.Username=.*', 'DB.Username=%DATABASE_USERNAME%' -replace '# DB\.Password=.*', 'DB.Password=%DATABASE_PASSWORD%' | Set-Content -Path '%3'"
 
 	echo Update complete.
+	
+goto :eof
+
+:install_promt
+
+	:: Prompt user to install
+	set "userChoice="
+	set /p userChoice="Do you want to install %1? (yes/no): "
+
+	:: Check the user's choice, accepting "yes", "y", or "Y"
+	if /i "%userChoice%"=="yes" (
+		goto %2
+	) else if /i "%userChoice%"=="y" (
+		goto %2
+	) else if /i "%userChoice%"=="Y" (
+		goto %2
+	) else (
+		echo %1 Installation canceled.
+		goto :eof
+	)
 	
 goto :eof
 
