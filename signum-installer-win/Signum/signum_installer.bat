@@ -4,10 +4,10 @@ cd %~dp0
 
 set "SIGNUM_STARTER_BAT=start_signum.bat"
 
-set "SIGNUM_NODE_DIR=node"	
+set "SIGNUM_NODE_DIR=Node"	
 
 set "SIGNUM_MAINNET_VERSION=v3.8.2"
-set "SIGNUM_MAINNET_DIR=mainnet"
+set "SIGNUM_MAINNET_DIR=Mainnet"
 set "SIGNUM_MAINNET_DIR_PATH=%SIGNUM_MAINNET_DIR%\%SIGNUM_NODE_DIR%"
 set "SIGNUM_MAINNET_ZIP=signum-node-%SIGNUM_MAINNET_VERSION%-win_x64.zip"
 set "SIGNUM_MAINNET_UNZIP=signum-node-%SIGNUM_MAINNET_VERSION%-win_x64"
@@ -15,7 +15,7 @@ set "SIGNUM_MAINNET_STARTER_BAT_PATH=%SIGNUM_MAINNET_DIR_PATH%\%SIGNUM_MAINNET_U
 set "SIGNUM_MAINNET_URL=https://github.com/signum-network/signum-node/releases/download/%SIGNUM_MAINNET_VERSION%/%SIGNUM_MAINNET_ZIP%"
 
 set "SIGNUM_TESTNET_VERSION=v3.8.2"
-set "SIGNUM_TESTNET_DIR=testnet"
+set "SIGNUM_TESTNET_DIR=Testnet"
 set "SIGNUM_TESTNET_DIR_PATH=%SIGNUM_TESTNET_DIR%\%SIGNUM_NODE_DIR%"
 set "SIGNUM_TESTNET_ZIP=signum-node-%SIGNUM_TESTNET_VERSION%-win_x64.zip"
 set "SIGNUM_TESTNET_UNZIP=signum-node-%SIGNUM_TESTNET_VERSION%-win_x64"
@@ -53,20 +53,20 @@ set "SIGNUM_PLOTTER_STARTER_BAT_PATH="
 set "SIGNUM_PLOTTER_URL="
 
 set "BTDEX_VERSION=v0.6.8"
-set "BTDEX_DIR=btdex"
+set "BTDEX_DIR=BTDEX"
 set "BTDEX_EXE=btdex-%BTDEX_VERSION%-win.exe"
 set "BTDEX_EXE_PATH=%BTDEX_DIR%\%BTDEX_EXE%"
 set "BTDEX_URL=https://github.com/btdex/btdex/releases/download/%BTDEX_VERSION%/%BTDEX_EXE%"
 
 set "PHOENIX_VERSION=1.5.0-beta.3"
-set "PHOENIX_DIR=phoenix"
+set "PHOENIX_DIR=Phoenix"
 set "PHOENIX_EXE=win-phoenix-signum-wallet.%PHOENIX_VERSION%.exe"
 set "PHOENIX_EXE_PATH=%PHOENIX_DIR%\%PHOENIX_EXE%"
 set "PHOENIX_URL=https://github.com/signum-network/phoenix/releases/download/desktop-%PHOENIX_VERSION%/win-phoenix-signum-wallet.%PHOENIX_VERSION%.exe"
 	
 set "MARIADB_STARTER_BAT=start_mariadb.bat"	
 
-set "DATABASE_DIR=database"
+set "DATABASE_DIR=Database"
 
 set "MARIADB_VERSION=10.6.20"
 set "MARIADB_DIR=MariaDB"	
@@ -76,7 +76,7 @@ set "MARIADB_BIN=%DATABASE_DIR%\%MARIADB_DIR%\%MARIADB_UNZIP%\bin"
 set "MARIADB_STARTER_BAT_PATH=%DATABASE_DIR%\%MARIADB_DIR%\%MARIADB_UNZIP%\%MARIADB_STARTER_BAT%"
 set "MARIADB_URL=https://archive.mariadb.org/mariadb-10.6.20/winx64-packages/mariadb-10.6.20-winx64.zip"
 	
-set "TOOLS_DIR=tools"
+set "TOOLS_DIR=Tools"
 	
 set "HEIDISQL_VERSION=12.8_64"	
 set "HEIDISQL_DIR=HeidiSQL"
